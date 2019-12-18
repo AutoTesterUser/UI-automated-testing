@@ -24,7 +24,7 @@ user_agent 用户代理
 
 class Mock:
 
-    mc = Factory.create()
+    mc = Faker('zh_CN')
     def get_name(self):
         """
         随机姓名

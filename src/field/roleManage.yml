@@ -1,7 +1,7 @@
 test_moudle: 角色管理
 test_info:
   -
-    dec: 添加角色-成功
+    dec: 添加角色-添加成功
     test_case:
       -
         method: set_cookies
@@ -53,14 +53,14 @@ test_info:
       - method: get_screent_img
         name: 保存截图
 
-      - method: assertDtEquals
+      - method: assertEquals
         element: //*[@id="layui-layer2"]/div[2]
         by: XPATH
         name: 断言
         text: 角色创建成功
 
   -
-    dec: 添加角色 - 角色已存在
+    dec: 添加角色-角色已存在
     test_case:
       -
         method: set_cookies
@@ -109,13 +109,83 @@ test_info:
         by: XPATH
         name: 点击提交
 
-      - method: get_screent_img
-        name: 保存截图
-
-      - method: assertDtEquals
+      - method: assertEquals
         element: //*[@id="layui-layer2"]/div[2]
         by: XPATH
         name: 断言-该角色名称已经存在
         text: 该角色名称已经存在
+  -
+    dec: 查询角色
+    test_case:
+      -
+        method: set_cookies
+        name: 设置cookie
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/a
+        by: XPATH
+        name: 点击基础功能
+
+      - method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/ul/li[1]/a
+        by: XPATH
+        name: 点击角色管理
+
+      - method: inputText
+        element: //*[@id="searchrolename"]
+        by: XPATH
+        name: 输入角色名
+        text: admin
+      -
+        method: click
+        element: //*[@id="tab_rolelist"]/div/div[1]/div/div[3]/a
+        by: XPATH
+        name: 点击查询
+
+      - method: assertEquals
+        element: //*[@id="searchrole"]/tbody/tr[1]/td[1]
+        by: XPATH
+        name: 断言-用户名是否存在
+        text: admin
+
+  -
+    dec: 修改角色权限
+    test_case:
+      -
+        method: set_cookies
+        name: 设置cookie
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/a
+        by: XPATH
+        name: 点击基础功能
+
+      - method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/ul/li[1]/a
+        by: XPATH
+        name: 点击角色管理
+
+      - method: click
+        element: //*[@id="searchrole"]/tbody/tr[1]/td[4]/a[2]
+        by: XPATH
+        name: 点击修改
+
+      -
+        method: click
+        element: //*[@id="updatetree_1_check"]
+        by: XPATH
+        name: 选择权限
+
+      - method: click
+        element: //*[@id="submitupdaterole"]
+        by: XPATH
+        name: 点击提交
+
+      - method: assertEquals
+        element: /html/body/div[8]/div[2]
+        by: XPATH
+        name: 断言-用户名是否存在
+        text: 角色更新成功
+
 
 

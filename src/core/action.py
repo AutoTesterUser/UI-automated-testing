@@ -20,14 +20,13 @@ def Action(cls,data):
     :param data:
     :return:
     """
-    # pool = ['method','name','by','element','assertText']
+    pool = ['inputText','assertEquals','select_by_value']
     for operate in data:
         if 'element' in operate:
             #params = cls.__getattribute__(operate['method']).__code__.co_varnames
-            if operate['method'] == 'inputText' or operate['method'] == 'assertDtEquals':
+            if operate['method'] in pool:
                 if operate['text'] not in Mock().methods():
                     with allure.step("%s"%(operate['name'])):
-                        allure.attach(operate['text'])
                         cls.__getattribute__(operate['method'])((operate['by'], operate['element']),operate['text'])
                 else:
                     with allure.step("%s" % (operate['name'])):
@@ -93,22 +92,21 @@ class ElementActions(Mock):
         self.driver.get(conf.host_manage('${host}$'))
 
 
-    def get_screent_img(self,dir=baseDir):
+    def get_screent_img(self,text,dir=baseDir):
         '''将页面截图下来'''
         riqi = time.strftime("%Y-%m-%d", time.localtime())
         now = time.strftime("%Y-%m-%d_%H_%M_%S")
         file_path = os.path.join(dir,'src','Screenshot',riqi)
         mk_dir(file_path)
-        pic_file_path = os.path.join(file_path,now+'.png')
+        pic_file_path = os.path.join(file_path,text+'.png')
         try:
             self.driver.get_screenshot_as_file(pic_file_path)
             logger.info("页面已截图，截图的路径在项目: /Screenshots路径下")
-            with allure.step('Screenshots'):
-                allure.attach.file(pic_file_path, attachment_type=allure.attachment_type.PNG)
+            allure.attach.file(pic_file_path, attachment_type=allure.attachment_type.PNG)
             return pic_file_path
         except NameError as ne:
             logger.error("失败截图 %s" % ne)
-            self.get_screent_img()
+
 
     def inputText(self, loc, text):
         logger.info('清空文本框内容: %s...' % loc[1])
@@ -257,20 +255,40 @@ class ElementActions(Mock):
             return False
         else:
             return result
-    def assertDtEquals(self,loc,value):
+    def assertEquals(self,loc,value):
         '''
         断言实际值等于期望值
         '''
-
         try:
             actual = self.findView(*loc).text
+            self.get_screent_img(actual)
             assert (actual == value)
+            self.get_screent_img(actual)
         except TimeoutException as timee:
             logger.info("断言相等失败，通过" + loc[0] + "方式定位元素：" + loc[1] + "超时")
+            self.get_screent_img(value+'查找元素超时')
             raise timee
         except Exception as e:
             logger.info("断言相等失败，实际值：" + actual + "；" + "期望值：" + value)
             raise e
+
+    def assertIn(self,loc,value):
+        '''
+        断言实际值等于期望值
+        '''
+        try:
+            actual = self.findView(*loc).text
+            self.get_screent_img(actual)
+            assert (actual in value)
+            self.get_screent_img(actual)
+        except TimeoutException as timee:
+            logger.info("断言IN失败，通过" + loc[0] + "方式定位元素：" + loc[1] + "超时")
+            self.get_screent_img(value+'查找元素超时')
+            raise timee
+        except Exception as e:
+            logger.info("断言IN失败，实际值：" + actual + "；" + "期望值：" + value)
+            raise e
+
 
     def is_title(self, title, timeout=10):
         '''判断title完全等于'''

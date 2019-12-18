@@ -1,0 +1,92 @@
+test_moudle: 操作员管理
+test_info:
+  -
+    dec: 添加操作员-添加成功
+    test_case:
+      -
+        method: set_cookies
+        name: 跳过登陆
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/a
+        by: XPATH
+        name: 点击基础功能
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/ul/li[2]/a
+        by: XPATH
+        name: 点击操作员管理
+
+      - method: click
+        element: //*[@id="tab_userlist"]/div/div/div[3]/div/div[1]/button
+        by: XPATH
+        name: 点击添加角色
+
+      - method: inputText
+        element: //*[@id="usernameA"]
+        by: XPATH
+        name: 输入用户名
+        text: get_username
+
+      - method: inputText
+        element: //*[@id="passwordA"]
+        by: XPATH
+        name: 输入密码
+        text: get_password
+
+      - method: inputText
+        element: //*[@id="nameA"]
+        by: XPATH
+        name: 输入姓名
+        text: get_name
+
+      - method: inputText
+        element: //*[@id="emailA"]
+        by: XPATH
+        name: 输入邮箱
+        text: get_email
+
+      - method: inputText
+        element: //*[@id="phoneA"]
+        by: XPATH
+        name: 输入手机号
+        text: get_phone
+
+      - method: inputText
+        element: //*[@id="startDateA"]
+        by: XPATH
+        name: 输入起始日期
+        text: 20191218
+
+      - method: inputText
+        element: //*[@id="endDateA"]
+        by: XPATH
+        name: 输入结束日期
+        text: 20200123
+
+      - method: select_by_value
+        element: //*[@id="roleIdA"]
+        by: XPATH
+        name: 选择角色名称
+        text: 3
+
+      - method: select_by_value
+        element: //*[@id="stateA"]
+        by: XPATH
+        name: 选择操作员状态
+        text: 1
+
+      - method: click
+        element: //*[@id="treeDemo_1_check"]
+        by: XPATH
+        name: 选择项目权限
+
+      - method: click
+        element: //*[@id="addConfirm"]
+        by: XPATH
+        name: 点击提交
+
+
+
+
+
