@@ -1,0 +1,121 @@
+test_moudle: 角色管理
+test_info:
+  -
+    dec: 添加角色-成功
+    test_case:
+      -
+        method: set_cookies
+        name: 跳过登陆
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/a
+        by: XPATH
+        name: 点击基础功能
+
+      - method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/ul/li[1]/a
+        by: XPATH
+        name: 点击角色管理
+
+      - method: click
+        element: //*[@id="tab_rolelist"]/div/div[1]/div/div[5]/button
+        by: XPATH
+        name: 点击添加角色
+      -
+        method: inputText
+        element: //*[@id="creatrolename"]
+        by: XPATH
+        name: 输入角色名
+        text: get_username
+      -
+        method: inputText
+        element: //*[@id="creatroleEname"]
+        by: XPATH
+        name: 输入标签名
+        text: get_username
+
+      - method: inputText
+        element: //*[@id="creatusersign"]
+        by: XPATH
+        name: 输入管理员
+        text: get_name
+
+      - method: click
+        element: //*[@id="newtree_1_check"]
+        by: XPATH
+        name: 点击关联权限
+
+      - method: click
+        element: //*[@id="submitaddrole"]
+        by: XPATH
+        name: 点击提交
+
+      - method: get_screent_img
+        name: 保存截图
+
+      - method: assertDtEquals
+        element: //*[@id="layui-layer2"]/div[2]
+        by: XPATH
+        name: 断言
+        text: 角色创建成功
+
+  -
+    dec: 添加角色 - 角色已存在
+    test_case:
+      -
+        method: set_cookies
+        name: 设置cookie
+      -
+        method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/a
+        by: XPATH
+        name: 点击基础功能
+
+      - method: click
+        element: //*[@id="page-sidebar-menu"]/li[4]/ul/li[1]/a
+        by: XPATH
+        name: 点击角色管理
+
+      - method: click
+        element: //*[@id="tab_rolelist"]/div/div[1]/div/div[5]/button
+        by: XPATH
+        name: 点击添加角色
+      -
+        method: inputText
+        element: //*[@id="creatrolename"]
+        by: XPATH
+        name: 输入角色名
+        text: test01
+      -
+        method: inputText
+        element: //*[@id="creatroleEname"]
+        by: XPATH
+        name: 输入标签名
+        text: 标签名
+
+      - method: inputText
+        element: //*[@id="creatusersign"]
+        by: XPATH
+        name: 输入管理员
+        text: 管理员
+
+      - method: click
+        element: //*[@id="newtree_1_check"]
+        by: XPATH
+        name: 点击关联权限
+
+      - method: click
+        element: //*[@id="submitaddrole"]
+        by: XPATH
+        name: 点击提交
+
+      - method: get_screent_img
+        name: 保存截图
+
+      - method: assertDtEquals
+        element: //*[@id="layui-layer2"]/div[2]
+        by: XPATH
+        name: 断言-该角色名称已经存在
+        text: 该角色名称已经存在
+
+

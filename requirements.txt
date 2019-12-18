@@ -1,0 +1,9 @@
+PyMySQL==0.9.3
+selenium==3.141.0
+pytest==5.3.1
+allure-pytest==2.8.6
+Faker==3.0.0
+PyYAML
+
+
+
