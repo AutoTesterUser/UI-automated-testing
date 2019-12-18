@@ -12,12 +12,17 @@ def setUp(self):
         self.driver.implicitly_wait(30)
     elif (sysstr == "Linux"):
         options = Options()
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')  # 无头参数
+        options.add_argument('--disable-gpu')
         # options.add_argument('--headless')
-        options.add_argument('--no-sandbox')  # options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--disable-dev-shm-usage')
-        self.driver = webdriver.Chrome(executable_path="/root/chrome/chromedriver", options=options)
+        # options.add_argument('--no-sandbox')  # options.add_argument('--disable-dev-shm-usage')
+        # options.add_argument('--disable-dev-shm-usage')
+        self.driver = webdriver.Chrome(executable_path="/home/shdy/drivers/bin/chromedriver", options=options)
         self.driver.maximize_window()
-        print("Linux 系统")
+        logger.info("测试开始: 打开Chrome浏览器")
+        self.driver.implicitly_wait(30)
+        logger.info("设置隐士等待时间30秒")
     elif (sysstr == "Darwin"):
         logger.info("当前系统: macos")
         self.driver = webdriver.Chrome('/Users/wanghaitao/PycharmProjects/uiautotesting/driver/chromedriver')
